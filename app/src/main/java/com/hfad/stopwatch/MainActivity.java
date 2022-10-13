@@ -100,4 +100,25 @@ public class MainActivity extends AppCompatActivity {
     public void saveOffset(){
         offset = SystemClock.elapsedRealtime() - stopwatch.getBase();
     }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        if (running) {
+            saveOffset();
+            stopwatch.stop();
+        }
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (running) {
+            setBaseTime();
+            stopwatch.start();
+            offset = 0;
+        }
+    }
+
 }
